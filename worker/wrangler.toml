@@ -1,0 +1,8 @@
+name = "prediction-worker"
+main = "src/index.js"
+compatibility_date = "2026-06-11"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "wc-2026-db"
+database_id = "fe1c6d57-66de-4af2-a8bc-07417db3501a"

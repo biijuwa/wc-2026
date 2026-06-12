@@ -1,0 +1,18 @@
+# Wrangler/Cloudflare
+.wrangler/
+.mf/
+dist/
+node_modules/
+
+# Local D1 Databases
+*.sqlite
+*.sqlite-journal
+
+# Environment Variables
+.env
+.dev.vars
+
+# IDE/Editor
+.vscode/
+.idea/
+.DS_Store
