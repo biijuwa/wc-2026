@@ -1,0 +1,76 @@
+<style>
+  /* Removed bracket-wrapper and min-width to allow grid to flow */
+  #bracket-content {
+    display: grid;
+    /* 5 Columns: RO32, RO16, QF, SF, FinalsGroup */
+    grid-template-columns: 2fr 1.2fr 1fr 1fr 1.5fr;
+    gap: 0.5rem;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .bracket-container-parent {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .stage-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  /* Specific style for the final column grouping */
+  .finals-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .ro32-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .ro32-header { grid-column: span 2; }
+
+  .bracket-card-small {
+    background-color: #33363b;
+    color: white;
+    border: 1px solid #4a4e54;
+    border-radius: 0.25rem;
+    padding: 6px;
+    font-size: 9px;
+  }
+
+  .team-option {
+    display: block;
+    width: 100%;
+    padding: 2px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .team-option:hover { background: #40444a; }
+  .team-option.font-bold { color: #60a5fa; font-weight: bold; }
+</style>
+
+<div class="bg-[#1f2124] p-6 rounded-xl shadow-sm border border-[#4a4e54] bracket-container-parent">
+  <h2 class="text-xl font-bold mb-1 text-white text-center">Predict Whole Tournament</h2>
+  <p id="lock-note" class="text-[10px] text-center mb-6 font-semibold"></p>
+  
+  <div id="bracket-content">
+    </div>
+  
+  <button id="submit-bracket" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-lg mt-6 transition">
+      Submit Predictions
+  </button>
+</div>

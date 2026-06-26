@@ -1,72 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        body {
-            font-family: "Elms Sans", sans-serif;
-            font-optical-sizing: auto;
-        }
+      body {
+        font-family: "Elms Sans", sans-serif;
+        font-optical-sizing: auto;
+      }
+      /* Ensure grid children do not overflow their parent */
+      .grid-item-container {
+        min-width: 0;
+      }
     </style>
-</head>
-<body class="bg-gray-100 min-h-screen">
-    
+  </head>
+
+  <body class="bg-gray-100 min-h-screen">
     <div id="navbar-container"></div>
+    <div id="banner-container"></div>
+
+    <section
+      id="dashboard-widgets"
+      class="hidden container mx-auto max-w-[70%] px-4 mt-6 grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-6"
+    >
+      <div class="flex flex-col gap-6 grid-item-container overflow-hidden">
+        <div id="matchday-container"></div>
+        <div id="knockout-prediction-container"></div>
+      </div>
+
+      <div class="flex flex-col gap-6 grid-item-container">
+        <div id="prediction-ranking-container"></div>
+
+        <div
+          id="football-quiz-container"
+          class="relative w-full"
+        >
+          </div>
+      </div>
+    </section>
 
     <main class="mx-auto max-w-[70%] p-6">
-        <div id="login-view" class="text-center mt-20">
-            <h2 class="text-4xl font-bold mb-6">Welcome to the 2026 World Cup</h2>
-            <p class="mb-8 text-gray-600">Please sign in to view match schedules and updates.</p>
-            <a href="http://127.0.0.1:8787/login" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-bold">
-                Sign in with Google
-            </a>
-        </div>
-
-        <div id="dashboard-view" class="hidden">
-            <h2 class="text-3xl font-bold mb-8 text-slate-800">Upcoming Matches</h2>
-            <div id="content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                </div>
-        </div>
+      <div id="login-view" class="text-center mt-20">
+        <h2 class="text-4xl font-bold mb-6">Welcome to the 2026 World Cup</h2>
+        <a href="http://127.0.0.1:8787/login" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-bold">Sign in with Google</a>
+      </div>
+      <div id="dashboard-view" class="hidden">
+        <div id="content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
     </main>
 
-    <script>
-        // Load Navbar
-        fetch('component/navbar.html')
-            .then(res => res.text())
-            .then(html => {
-                document.getElementById('navbar-container').innerHTML = html;
-                checkUserSession();
-            });
-
-        async function checkUserSession() {
-            const userId = localStorage.getItem('userId') || new URLSearchParams(window.location.search).get('user');
-            
-            if (userId) {
-                localStorage.setItem('userId', userId);
-                const res = await fetch(`http://127.0.0.1:8787/api/me?id=${userId}`);
-                const user = await res.json();
-                
-                if (user.first_name) {
-                    document.getElementById('user-name').innerText = `Hello, ${user.first_name}`;
-                    document.getElementById('logout-btn').classList.remove('hidden');
-                    document.getElementById('login-view').classList.add('hidden');
-                    document.getElementById('dashboard-view').classList.remove('hidden');
-                    loadMatches();
-                }
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('userId');
-            window.location.href = '/';
-        }
-    </script>
-</body>
+    <script type="module" src="/js/page.js"></script>
+  </body>
 </html>
